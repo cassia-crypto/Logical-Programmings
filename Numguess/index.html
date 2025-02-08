@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: gray;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        input{
+            background-color: rgb(209, 237, 241);
+        }
+        button {
+            margin-top: 10px;
+           background-color: rgb(209, 237, 241);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Number Guessing Game</h2>
+        <p>Guess a number between 1 and 100</p>
+        <input type="number" id="guess" placeholder="Enter" min="1" max="100">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 5;
+        
+        function checkGuess() {
+            let userGuess = parseInt(document.getElementById('guess').value);
+            let message = document.getElementById('message');
+            
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                message.textContent = "Please enter a valid number between 1 and 100.";
+                return;
+            }
+            
+            attempts--;
+            if (userGuess === randomNumber) {
+                message.textContent = "🎉 Congratulations! You guessed the number right!";
+            } else if (attempts === 0) {
+                message.textContent = `😢 You've run out of attempts! The number was ${randomNumber}.`;
+            } else if (userGuess < randomNumber) {
+                message.textContent = `📉 Too low! You have ${attempts} attempts left.`;
+            } else {
+                message.textContent = `📈 Too high! You have ${attempts} attempts left.`;
+            }
+        }
+    </script>
+</body>
+</html>
